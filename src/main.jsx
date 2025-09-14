@@ -10,7 +10,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <ImgsRoute.Provider value="https://image.tmdb.org/t/p/">
-        <ServerUrl.Provider value='http://localhost:3000/api'>
+        <ServerUrl.Provider value="https://movi-x-api.vercel.app/api">
           <DataProvider>
             <UserProvider>
               <App />
