@@ -1,0 +1,37 @@
+:root {
+  --main-bg: #121212;
+  --sec-bg:#1E1E1E;
+  --primary-accent:#FF4D4D;
+  --primary-accent-gradient:#FF914D;
+  --sec-accent: #1E3A8A;
+  --main-text:#FFFFFF;
+  --muted-body-text: #757575;
+  --sec-info: #b3b3b3;
+  --highlight: #F6C90E;
+  --success: #16A34A;
+  --warning: #CA8A04;
+  --error: #DC2626;
+  --font-header-serif: "Playfair Display", serif;
+  --font-header: "Bebas Neue", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: var(--main-bg);
+  color: var(--main-text);
+  font-family: var(--font-body);
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+header, div.notification-show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -1,0 +1,30 @@
+.poster-div, .actor, .carousel-name, .carousel-overview, .carousel-more {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all .8s;
+}
+.carousel-overview {
+    transition: 1.5s;
+}
+.carousel-more {
+    transition: 1.8s;
+}
+.work-poster {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: all 1s;
+}
+.posters-title {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 1s;
+}
+
+.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+.animate-posters-title {
+    opacity: 1;
+    transform: translateX(0);
+}
