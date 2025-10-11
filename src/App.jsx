@@ -17,6 +17,7 @@ import SignUp from './components/register/SignUp.jsx';
 import User from './components/register/User.jsx';
 import MoreShows from './components/details/MoreShows.jsx';
 import MoreDiscoverShows from './components/details/MoreDiscoverShows.jsx';
+import Artist from './components/details/Artist.jsx';
 
 function App() {
     return(
@@ -33,6 +34,7 @@ function App() {
                 <Route path='/search' element={<SearchResult />} />
                 <Route path='movies/genre/:genreId' element={<SearchGenre kind="movies" />} />
                 <Route path='series/genre/:genreId' element={<SearchGenre kind="series" />} />
+                <Route path='/artist/:artistId' element={<Artist />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/signUp' element={<SignUp />} />
                 <Route path='/user' element={<User />} />

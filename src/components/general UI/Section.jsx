@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function Section(props) {
     
-    useEffect(()=> {
+    useEffect(()=> { // animate titles
         const titles = document.querySelectorAll('.posters-title');
         
         const observer = new IntersectionObserver((entries)=> {
@@ -30,20 +30,25 @@ export default function Section(props) {
     }else {
         if (props.discover) {
             var routeforMore = `/discover?kind=${props.kind}&country=${props.country}&language=${props.lang}&title=${props.title}`;
-        } else {
+        } else if (props.route) {
             routeforMore = `/more${props.recommendationsId ? `/${props.recommendationsId}`: ''}?kind=${props.kind}&title=${props.route}`;
+        } else {
+            routeforMore = null;
         }
+        
         return (
             <section className="posters-container">
                 <div className="posters-header mb-2">
-                    <Link to={routeforMore}>
+                    <Link to={routeforMore || "#"}>
                         <h3 className="posters-title">
                             {props.title}
-                            <span className="poster-show-more">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-chevron-right ms-1" viewBox="0 0 16 16">
-                                    <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-                                </svg>
-                            </span>
+                            {routeforMore &&
+                                <span className="poster-show-more">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-chevron-right ms-1" viewBox="0 0 16 16">
+                                        <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                                    </svg>
+                                </span>
+                            }
                         </h3>
                     </Link>
                 </div>

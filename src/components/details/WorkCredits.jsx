@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { ImgsRoute } from "../../contexts/generalContext";
 
@@ -25,7 +25,7 @@ export default function WorkCredits(props) {
     }, [posterId, props.kind])
     
     useEffect(()=> {
-        const actors = document.querySelectorAll(".actor");                
+        const artists = document.querySelectorAll(".artist");                
         const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -36,38 +36,40 @@ export default function WorkCredits(props) {
         });
         }, { threshold: 0.2 });
 
-        if (actors && actors.length > 0) {
-            actors.forEach(actor => observer.observe(actor));
+        if (artists && artists.length > 0) {
+            artists.forEach(artist => observer.observe(artist));
         }
 
         return(()=> {
-            if (actors && actors.length > 0) {
-                actors.forEach(actor => observer.unobserve(actor));
+            if (artists && artists.length > 0) {
+                artists.forEach(artist => observer.unobserve(artist));
             }
         })
     }, [credits])
 
-    const actors = credits.filter(credit=> credit.known_for_department === "Acting" && credit.profile_path);
+    const cast = credits.filter(credit=> credit.profile_path);
 
     return (
         <section className="work-credits-container">
-            <h2>Actors</h2>
-            {actors[0] ?
+            <h2>Cast</h2>
+            {cast[0] ?
                 <div className="work-credits">
-                {actors.map((actor)=> {
+                {cast.map((artist)=> {
                     return(
-                        <div key={actor.id} className="position-relative actor">
-                            <img src={imgsRoute + "w154" + actor.profile_path} alt={props.alt} loading="lazy" className="rounded-4" />
-                            <div className="actor-names position-absolute">
-                                <p className="actor-name m-0">{actor.original_name}</p>
-                                <p className="actor-char m-0"><i>{actor.character}</i></p>
+                        <Link to={`/artist/${artist.id}`}>
+                            <div key={artist.id} className="position-relative artist">
+                                <img src={imgsRoute + "w154" + artist.profile_path} alt={props.alt} loading="lazy" className="rounded-4" />
+                                <div className="artist-names position-absolute">
+                                    <p className="artist-name m-0">{artist.original_name}</p>
+                                    <p className="artist-char m-0"><i>{artist.character}</i></p>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     )
                 })}
                 </div>
                 :
-                <h3>No actors available</h3>
+                <h3>No cast available</h3>
             }
         </section>
     )

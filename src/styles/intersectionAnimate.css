@@ -1,4 +1,4 @@
-.poster-div, .actor, .carousel-name, .carousel-overview, .carousel-more {
+.poster-div, .artist-profile, .carousel-name, .carousel-overview, .carousel-more {
     opacity: 0;
     transform: translateY(50px);
     transition: all .8s;

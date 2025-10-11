@@ -14,7 +14,7 @@ export default function WorkDetails({ kind, tmdbData, omdbData }) {
     const [fav, setFav] = useState(false);
     const [later, setLater] = useState(false);
     
-    useEffect(()=> { // poster animataion
+    useEffect(()=> { // poster animation
         const poster= posterRef.current;
         const observer = new IntersectionObserver((entries)=> {
             entries.forEach(entry=> {

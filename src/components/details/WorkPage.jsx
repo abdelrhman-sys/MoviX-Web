@@ -78,8 +78,8 @@ export default function WorkPage(props) {
                 <WorkDetails kind={props.kind} tmdbData={tmdbData} omdbData={omdbData} />
                 <div className="work-media" style={{backgroundImage: `url(${imgsRoute + 'original' + tmdbData.backdrop_path})`}}>
                     <div>
-                        <WorkMedia kind={props.kind} alt={tmdbData.title || tmdbData.name} />
                         <WorkCredits kind={props.kind} tmdb={tmdbData} omdb={omdbData} />
+                        <WorkMedia kind={props.kind} alt={tmdbData.title || tmdbData.name} />
                         <Recommendatons kind={props.kind} alt={tmdbData.title || tmdbData.name} />
                     </div>    
                 </div>
