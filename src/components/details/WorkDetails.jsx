@@ -123,6 +123,7 @@ export default function WorkDetails({ kind, tmdbData, omdbData }) {
             navigate('/login');
         }
     }
+console.log(tmdbData);
 
     return (
         <div className="work" style={{background: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url(${imgsRoute + "original" + tmdbData.backdrop_path}) center/cover no-repeat`}}>
@@ -132,12 +133,15 @@ export default function WorkDetails({ kind, tmdbData, omdbData }) {
             <div className="work-details">
                 <h1  className="mt-2">{tmdbData.title || tmdbData.name}</h1>
                 <div>
-                    <span className="work-rate me-2">{omdbData.imdbRating}{(omdbData.imdbRating != 'N/A') && "/10"} <span id="imdb">IMDb</span></span>
+                    <span className="work-rate me-2">{omdbData? omdbData.imdbRating : 'N/A'}{omdbData && (omdbData.imdbRating != 'N/A') && "/10"} <span id="imdb">IMDb</span></span>
                     <span className="work-genres">
-                        {omdbData.Genre.split(', ').map((genre, index)=> {
+                        {omdbData ? omdbData.Genre.split(', ').map((genre, index)=> {
                             return <span key={index} className="work-genre m-1 p-1 rounded-3">{genre}</span>
                             })
-                        }
+                        :
+                        tmdbData.genres.map((genre, index)=> {
+                            return <span key={index} className="work-genre m-1 p-1 rounded-3">{genre.name}</span>
+                        })}
                     </span>
                 </div>
                 <div className="mt-4 work-description">
@@ -152,7 +156,7 @@ export default function WorkDetails({ kind, tmdbData, omdbData }) {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-globe-americas me-1" viewBox="0 0 16 16">
                             <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484q-.121.12-.242.234c-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z"/>
                         </svg>   
-                        Country: <span className="work-country detail">{omdbData.Country}</span>
+                        Country: <span className="work-country detail">{omdbData ? omdbData.Country : tmdbData.origin_country[0]}</span>
                     </p>
                     <hr />
                     <p>
@@ -167,7 +171,7 @@ export default function WorkDetails({ kind, tmdbData, omdbData }) {
                             <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
                             <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
                         </svg>
-                        Language: <span className="work-language detail">{tmdbData.spoken_languages[0].english_name}</span>
+                        Language: <span className="work-language detail">{tmdbData.spoken_languages[0]?.english_name || "N/A"}</span>
                     </p>
                     <hr />
                     {tmdbData.runtime? <p>
@@ -185,22 +189,26 @@ export default function WorkDetails({ kind, tmdbData, omdbData }) {
                             Seasons: <span className="work-seasons detail">{tmdbData.number_of_seasons}</span>
                         </p>
                     }
-                    <hr />
-                    {omdbData.Type == "movie"? <p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cash-stack me-1" viewBox="0 0 16 16">
-                                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
-                                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
-                            </svg>
-                            Box office: <span className="work-office detail">{omdbData.BoxOffice}</span>
-                        </p>
-                        :
-                        <p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list-ol me-1" viewBox="0 0 16 16">
-                                <path fillRule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5"/>
-                                <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635z"/>
-                            </svg>
-                            Episodes: <span className="work-episodes detail">{tmdbData.number_of_episodes}</span>
-                        </p>
+                    {omdbData &&
+                        <>
+                            <hr />
+                            {omdbData.Type == "movie" ? 
+                            <p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cash-stack me-1" viewBox="0 0 16 16">
+                                    <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                                    <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
+                                </svg>
+                                Box office: <span className="work-office detail">{omdbData.BoxOffice}</span>
+                            </p>
+                            :
+                            <p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list-ol me-1" viewBox="0 0 16 16">
+                                    <path fillRule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5"/>
+                                    <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635z"/>
+                                </svg>
+                                Episodes: <span className="work-episodes detail">{tmdbData.number_of_episodes}</span>
+                            </p>}
+                        </>
                     }
                 </div>
 
