@@ -58,7 +58,7 @@ export default function MoreShows() {
                             alt={show.title || show.name}
                             posterId={show.id}
                             path={show.poster_path}
-                            src={imgsRoute + "w154" + show.poster_path}  
+                            src={imgsRoute + "w780" + show.poster_path}  
                             />
                         })
                     }

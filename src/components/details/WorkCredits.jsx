@@ -56,9 +56,9 @@ export default function WorkCredits(props) {
                 <div className="work-credits">
                 {cast.map((artist)=> {
                     return(
-                        <Link to={`/artist/${artist.id}`}>
+                        <Link to={`/artist/${artist.id}`} key={artist.id}>
                             <div key={artist.id} className="position-relative artist">
-                                <img src={imgsRoute + "w154" + artist.profile_path} alt={props.alt} loading="lazy" className="rounded-4" />
+                                <img src={imgsRoute + "w780" + artist.profile_path} alt={props.alt} loading="lazy" className="rounded-4" />
                                 <div className="artist-names position-absolute">
                                     <p className="artist-name m-0">{artist.original_name}</p>
                                     <p className="artist-char m-0"><i>{artist.character}</i></p>

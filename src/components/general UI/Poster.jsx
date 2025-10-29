@@ -123,12 +123,10 @@ export default function Poster(props) {
             navigate('/login');
         }
     }
-
-    const width = props.src.match(/w\d+/) ? (props.src.match(/w\d+/)[0]) : 154;
-    var posterWidth = parseInt(width.slice(1));        
+            
 
     return (
-        <div className="poster-div" style={{minWidth: posterWidth + "px", minHeight: (posterWidth * (3/2)) + "px"}}>
+        <div className="poster-div">
             <Link to={(props.kind === "movies"? "/movies/" : "/series/") + props.posterId}>
                 <img src={imgsRoute + props.src} alt={props.alt} loading="lazy" className="poster-img"/>
                 <p>{props.name}</p>

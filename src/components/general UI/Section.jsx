@@ -56,7 +56,7 @@ export default function Section(props) {
                     {props.data.filter(poster=> poster.poster_path || poster.show_poster).map((work) => (
                         <Poster 
                             key={work.id || work.show_id} 
-                            src={"w154" + (work.poster_path || work.show_poster)}
+                            src={"w780" + (work.poster_path || work.show_poster)}
                             path={work.poster_path || work.show_poster}
                             alt={work.title|| work.name || work.show_name}
                             name={work.title|| work.name || work.show_name}

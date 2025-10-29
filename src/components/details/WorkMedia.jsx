@@ -55,7 +55,7 @@ export default function ShowImgs(props) {
                     {workImgs[0]? workImgs.map((img, index)=> {
                         return(
                             <div key={index} className="work-img">
-                                <img src={imgsRoute + "w342" + img.file_path} alt={props.alt} loading="lazy" className="rounded-3" />
+                                <img src={imgsRoute + "original" + img.file_path} alt={props.alt} loading="lazy" className="rounded-3" />
                             </div>
                         )
                     }): <h3>No images available</h3>}

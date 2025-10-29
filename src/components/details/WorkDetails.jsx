@@ -128,7 +128,7 @@ console.log(tmdbData);
     return (
         <div className="work" style={{background: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url(${imgsRoute + "original" + tmdbData.backdrop_path}) center/cover no-repeat`}}>
             <div className="work-poster ms-2" ref={posterRef}>
-                <img loading="lazy" src={(imgsRoute + "w342" + tmdbData.poster_path) || "https://png.pngtree.com/png-clipart/20230917/original/pngtree-icon-of-unavailable-image-illustration-in-vector-with-flat-design-vector-png-image_12324700.png"} alt={tmdbData.title || tmdbData.name} />
+                <img loading="lazy" src={(imgsRoute + "original" + tmdbData.poster_path) || "https://png.pngtree.com/png-clipart/20230917/original/pngtree-icon-of-unavailable-image-illustration-in-vector-with-flat-design-vector-png-image_12324700.png"} alt={tmdbData.title || tmdbData.name} />
             </div>
             <div className="work-details">
                 <h1  className="mt-2">{tmdbData.title || tmdbData.name}</h1>

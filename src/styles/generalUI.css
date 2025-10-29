@@ -47,14 +47,18 @@ header .logo img {
   margin-bottom: .5rem;
 }
 /* poster */
-.posters-container, .search-movies, .search-tv, .more-shows {
+.search-movies, .search-tv, .more-shows {
+  margin: 10px; 
+  margin-bottom: 0;
+  padding: .5rem;
+}
+.search-movies, .search-tv, .more-shows, .posters-container {
   background-color: var(--sec-bg);
   border-radius: 15px;
-  margin: 20px 20px 0 20px;
-  padding: 1.5rem;
 }
 .posters-container {
-  height: 370px;
+  padding: 1.5rem 1rem 0 1rem;
+  margin: 20px 20px 0 20px;
   box-shadow: 0px 0px 10px var(--sec-bg);
 }
 .posters-header {
@@ -72,17 +76,20 @@ header .logo img {
 .poster-div {
   position: relative;
   border-radius: 10px;
-  height: fit-content;
+  min-height: calc(155px * 1.5);
 }
 .poster-div img {
   transition: all .3s;
+  width: calc(150px + 5vw);
+  min-width: 140px;
 }
 .poster-div img:hover {
   box-shadow: 0 5px 20px var(--primary-accent-gradient);
 }
 .poster-div p {
   font-size: smaller;
-  width: 150px;
+  max-width: calc(140px + 3vw);
+  min-width: 140px;
   margin-bottom: 0;
   color: var(--sec-info);
 }
@@ -115,6 +122,14 @@ header .logo img {
 }
 .poster-img {
   border-radius: 10px;
+}
+@media (max-width: 660px) {
+  .poster-div img {
+    width: calc(145px + 2.5vw);
+  }
+  .posters-div, .search-posters, .more-posters {
+    gap: 15px;
+  }
 }
 /* 404 error page */
 .error {

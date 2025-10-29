@@ -231,11 +231,6 @@ nav h1, footer h1 {
     margin: 8px 0;
   }
 }
-@media (width < 370px) {
-  .work img, .work-imgs-container img {
-    width: 200px !important;
-  }
-}
 
 /* carousel in home */
 .carousel {
