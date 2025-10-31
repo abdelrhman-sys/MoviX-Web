@@ -186,6 +186,10 @@ input[type="file"] {
   justify-content: center;
   flex-direction: column;
 }
+.work-credits-container {
+  padding-left: .5rem;
+  padding-right: .5rem; 
+}
 .work-btn {
   color:inherit;
   transition: all .4s;
@@ -209,8 +213,6 @@ input[type="file"] {
 }
 .work-img, .work-trailers iframe, .work-vids iframe {
   flex: 1 0 250px; 
-}
-.work-trailers iframe, .work-vids iframe {
   max-width: 600px;
 }
 .artist-img {
@@ -239,8 +241,8 @@ input[type="file"] {
 }
 .work-credits .artist-names {
   left: 20%;
-  top: 75%;
-  font-size: normal;
+  top: 78%;
+  font-size: 75%;
   font-weight: 600;
   backdrop-filter: blur(5px);
   padding: 0 4px;

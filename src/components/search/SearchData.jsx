@@ -17,7 +17,7 @@ export default function SearchData(props) {
                         key={work.id} 
                         kind={props.kind} 
                         posterId={work.id} 
-                        src={"w185" + work.poster_path} 
+                        src={"w780" + work.poster_path} 
                         alt={work.title || work.name} 
                         name={work.title || work.name} 
                         />
