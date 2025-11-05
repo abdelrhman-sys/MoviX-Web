@@ -64,7 +64,7 @@ export default function ShowImgs(props) {
                 pageCount={imgsCount} 
                 next={() => setImgsCount(imgsCount + 1)} 
                 previous={() => setImgsCount(imgsCount - 1)}
-                totalPages={Math.ceil(imgs.length / 10)}
+                totalPages={Math.ceil(imgs.length / 8)}
                 />
             </section>
             <section className="work-trailers-container">
