@@ -82,7 +82,7 @@ export default function Carousel() {
     else {
         return (
             <div id="myCarousel" className="carousel slide mb-6" data-bs-ride="carousel">
-                <div className="carousel-indicators mb-3">
+                <div className="carousel-indicators mb-4">
                     {CarouselIndicators}
                 </div>
                 

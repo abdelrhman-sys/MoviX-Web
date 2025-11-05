@@ -24,7 +24,13 @@ body {
   font-family: var(--font-body);
 }
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 7.5px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--main-bg);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-accent);
 }
 a {
   text-decoration: none;
