@@ -73,9 +73,9 @@ nav h1, footer h1 {
   transform: scale(1.1);
   color: var(--primary-accent) !important;
 }
-.navbar-collapse .login {
-  border: 1px solid var(--primary-accent-gradient);
-  background-color: transparent;
+button.login {
+  border: 1px solid var(--highlight);
+  background-color: var(--primary-accent-gradient);
   color: var(--main-text);
   border-radius: 20px;
   padding: 6px 15px;
@@ -83,7 +83,7 @@ nav h1, footer h1 {
   margin-left: 3rem;
   display: inline;
 }
-.navbar-collapse .login:hover {
+button.login:hover {
   background-color: var(--primary-accent-gradient);
   transform: translateY(-2px);
 }
@@ -287,75 +287,4 @@ nav h1, footer h1 {
 .carousel-details p {
   width: 70%;
   margin: 0 auto 1rem auto;
-}
-
-/* footer */
-footer {
-  padding: 2rem 1rem;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-}
-footer p i {
-  font-size: larger;
-}
-@media (width < 760px) {
-  footer {
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-}
-.about {
-  max-width: 50%;
-}
-.links {
-  display: flex;
-  gap: 5rem;
-}
-.links h5 {
-  color: var(--primary-accent-gradient);
-}
-.more-content li {
-  list-style: none;
-  width: fit-content;
-  color: var(--sec-info);
-  transition: all .3s;
-}
-.more-content li:hover {
-  list-style: initial;
-  color: var(--highlight);
-}
-.social-link {
-  display: flex;
-  gap: 12px;
-}
-.copyright {
-  color: var(--muted-body-text);
-}
-#whatsapp, #facebook, #linkedin, #github {
-  transition: all .3s;
-}
-#whatsapp {
-  color: #25D366;
-}
-#facebook {
-  color: #3b5998;
-}
-#linkedin {
-  color: #0A66C2;
-}
-#whatsapp:hover, #facebook:hover, #linkedin:hover, #github:hover {
-  transform: scale(1.2);
-}
-@media (width < 760px) {
-  .links {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .copyright {
-    align-self: auto;
-  }
-  .about {
-    max-width: 80%;
-  }
 }

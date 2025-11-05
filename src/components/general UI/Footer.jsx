@@ -1,12 +1,29 @@
 import { Link } from "react-router-dom";
 import MainLogo from "./MainLogo";
+import { UserData } from "../../contexts/userContext";
 
 export default function Footer() {
+    const { user } = UserData();
+
     return (
         <footer>
             <div className="about">
                 <MainLogo />
                 <p><i>MoviX</i> is not just about movies, but about the art of storytelling — where every frame becomes a brushstroke, every scene a canvas, and every story a timeless piece of human expression.</p>
+                {!user.user && (
+                    <div className="d-flex flex-column gap-2 mb-3">
+                        <Link to="/login">
+                            <button className="btn btn-outline-secondary login" type="button">
+                                Login
+                            </button>
+                        </Link>
+                        <Link to="/signUp">
+                            <button className="btn btn-outline-secondary register mt-2" type="button">
+                                Signup
+                            </button>
+                        </Link>
+                    </div>
+                )}
                 <p className="copyright">Copyright ©Abdelrhman </p>
             </div>
             <div className="links">

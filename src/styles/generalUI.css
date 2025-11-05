@@ -141,3 +141,90 @@ header .logo img {
 .error h1 {
   color: red;
 }
+
+/* footer */
+footer {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+footer p i {
+  font-size: larger;
+}
+@media (width < 760px) {
+  footer {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+}
+.about {
+  max-width: 50%;
+}
+footer .login, footer .register {
+  margin: 0 !important;
+  width: 60%;
+  display: block;
+}
+footer .register {
+  color: var(--main-text);
+  border: 1px solid var(--primary-accent);
+  background: linear-gradient(135deg, var(--primary-accent-gradient) 10%, var(--primary-accent));
+  border-radius: 8px;
+  transition: all .3s;
+}
+footer .register:hover {
+  background: linear-gradient(135deg, var(--primary-accent-gradient) 10%, var(--primary-accent));
+  transform: translateY(-2px);
+}
+.links {
+  display: flex;
+  gap: 5rem;
+}
+.links h5 {
+  color: var(--primary-accent-gradient);
+}
+.more-content li {
+  list-style: none;
+  width: fit-content;
+  color: var(--sec-info);
+  transition: all .3s;
+}
+.more-content li:hover {
+  list-style: initial;
+  color: var(--highlight);
+}
+.social-link {
+  display: flex;
+  gap: 12px;
+}
+.copyright {
+  color: var(--muted-body-text);
+}
+#whatsapp, #facebook, #linkedin, #github {
+  transition: all .3s;
+}
+#whatsapp {
+  color: #25D366;
+}
+#facebook {
+  color: #3b5998;
+}
+#linkedin {
+  color: #0A66C2;
+}
+#whatsapp:hover, #facebook:hover, #linkedin:hover, #github:hover {
+  transform: scale(1.2);
+}
+@media (width < 760px) {
+  .links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .copyright {
+    align-self: auto;
+  }
+  .about {
+    max-width: 80%;
+  }
+}
