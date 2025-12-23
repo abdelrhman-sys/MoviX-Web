@@ -147,7 +147,7 @@ header .logo img {
   overflow-y: hidden;
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
+  scrollbar-color: var(--primary-accent) var(--main-bg);
   display: flex;
   gap: 20px;
   padding: .2rem;
@@ -158,6 +158,9 @@ header .logo img {
 @media (max-width: 660px) {
   .poster-div img {
     width: calc(145px + 2.5vw);
+  }
+  .posters-div {
+    scrollbar-color: transparent transparent;
   }
   .posters-div, .search-posters, .more-posters {
     gap: 15px;

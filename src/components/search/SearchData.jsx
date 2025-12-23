@@ -16,7 +16,8 @@ export default function SearchData(props) {
                         <Poster 
                         key={work.id} 
                         kind={props.kind} 
-                        posterId={work.id} 
+                        posterId={work.id}
+                        path={work.poster_path} 
                         src={"w780" + work.poster_path} 
                         alt={work.title || work.name} 
                         name={work.title || work.name} 
