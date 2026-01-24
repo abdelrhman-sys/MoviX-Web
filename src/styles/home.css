@@ -7,8 +7,8 @@ nav h1, footer h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
-  padding: 5px;
+  width: 75%;
+  padding: 2px;
   border: 2px solid var(--primary-accent);
   border-radius: 50px;
   position: fixed;
@@ -195,7 +195,7 @@ button.login:hover {
 .navbar-toggler:focus {
   rotate: 270deg;
 }
-@media (min-width: 855px) {
+@media (min-width: 905px) {
   .navbar-expand-lg .navbar-toggler {
     display: none;
   }
@@ -204,7 +204,7 @@ button.login:hover {
     flex-basis: auto;
   }
 }
-@media (width < 855px) {
+@media (width < 905px) {
   .form-and-toggle {
     order: initial;
   }
@@ -215,14 +215,14 @@ button.login:hover {
     gap: 1rem;
   }
 }
-@media (width < 600px) {
+@media (width < 650px) {
   .navbar form input:focus {
     width: 100px;
   }
 }
-@media (width < 475px) {
+@media (width < 525px) {
   .navbar {
-    width: 85%;
+    width: 80%;
   }
   .navbar form input:focus {
     width: 100%;
