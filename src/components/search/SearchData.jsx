@@ -1,4 +1,5 @@
 import Poster from "../general UI/Poster";
+import MiniLoading from "../general UI/MiniLoading";
 
 export default function SearchData(props) {
     return (
@@ -24,6 +25,7 @@ export default function SearchData(props) {
                         />
                     )
                 }): <h3>No {props.kind === "movies" ? "movies" : "series"} there!</h3>}
+                {props.miniLoading && <MiniLoading />}
             </div>
         </section>
     )

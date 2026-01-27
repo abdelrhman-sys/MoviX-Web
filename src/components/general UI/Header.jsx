@@ -138,7 +138,7 @@ function Header() {
                                         <li className="m-1"><Link to="/series/genre/35">Comedy</Link></li>
                                         <li className="m-1"><Link to="/series/genre/80">Crime</Link></li>
                                         <li className="m-1"><Link to="/series/genre/18">Drama</Link></li>
-                                        <li className="m-1"><Link to="/series/genre/27">Horror</Link></li>
+                                        <li className="m-1"><Link to="/series/genre/10765">Sci-Fi & Fantasy</Link></li>
                                         <li className="m-1"><Link to="/series/genre/9648">Mystery</Link></li>
                                         <li className="m-1"><Link to="/series/genre/10768">War & Politics</Link></li>
                                         <li className="m-1"><Link to="/series/genre/99">Documentary</Link></li>

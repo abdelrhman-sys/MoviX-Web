@@ -1,9 +1,11 @@
+// for showing more discover shows based on filters (kind, country, language)
+
 import axios from "axios";
 import { useContext, useEffect, useState } from "react"
-import PagesCount from "../general UI/PagesCount";
 import Poster from "../general UI/Poster";
 import { useSearchParams } from "react-router-dom";
 import Loading from "../general UI/Loading";
+import MiniLoading from "../general UI/MiniLoading";
 import { ImgsRoute } from "../../contexts/generalContext";
 import ErrorPage from "../general UI/ErrorPage";
 
@@ -16,9 +18,16 @@ export default function MoreShows() {
     const country = searchParams.get("country");
     const title = searchParams.get("title");
     const [pageCount, setPageCount] = useState(1);
+    const [miniLoading, setMiniLoading] = useState(false);
+
+    // reset data when filters change (kind/country/lang/title)
+    useEffect(() => {
+        setData({});
+        setPageCount(1);
+    }, [kind, country, lang, title]);
 
     useEffect(()=> {
-        setData({});
+        setMiniLoading(true);
         const options = {
         method: 'GET',
         url: `https://api.themoviedb.org/3/discover/${kind == 'movies'? 'movie': 'tv'}?include_adult=false&include_video=false&language=en-US&page=${pageCount}&sort_by=revenue.desc&with_origin_country=${country}&with_original_language=${lang}`,
@@ -29,12 +38,31 @@ export default function MoreShows() {
 
         axios 
         .request(options)
-        .then(res => setData(res.data)) 
-        .catch(err => setData({error: err}));
+        .then(res => setData(prev => ({
+            page: res.data.page,
+            total_pages: res.data.total_pages,
+            results: prev.results ? [...prev.results, ...res.data.results] : res.data.results
+        })))
+        .catch(err => setData({error: err}))
+        .finally(() => setMiniLoading(false));
     }, [pageCount, kind, country, lang]);
 
+    useEffect(() => {
+        const lastPoster = document.querySelector(".poster-div:last-child");
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                if (data.page && pageCount < data.total_pages) {
+                    setPageCount(prev => prev + 1);
+                }
+            }
+        }, { threshold: .7 });
+
+        if (lastPoster) observer.observe(lastPoster);
+        return () => { if (lastPoster) observer.unobserve(lastPoster); };
+    }, [data, pageCount]);
+
     if (data.error) {
-        return <ErrorPage error={data.error.message} />;
+        return <ErrorPage error={data.error.message || data.error} />;
     }
 
     if (data.results && data.results.length > 0) {
@@ -56,13 +84,8 @@ export default function MoreShows() {
                             />
                         })
                     }
+                    {miniLoading && <MiniLoading />}
                 </div>
-                <PagesCount 
-                pageCount={pageCount} 
-                next={() => setPageCount(pageCount + 1)} 
-                previous={() => setPageCount(pageCount - 1)}
-                totalPages={data.total_pages}
-                />
             </main>
         )
     }else {
