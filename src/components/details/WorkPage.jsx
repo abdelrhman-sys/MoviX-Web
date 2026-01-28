@@ -67,8 +67,9 @@ export default function WorkPage(props) {
                     
                     setOmdbData(omdbResponse.data); // use for {imdbRate, boxOffice, genre}
                 } catch (error) {
-                    console.log("error from omdb api " , error);
+                    console.error("error from omdb api " , error);
                     setTmdbData({message: error});
+                    return setOmdbData(undefined);
                 }
             }
         }

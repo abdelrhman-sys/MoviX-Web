@@ -6,6 +6,7 @@ import { useState } from "react";
 import { UserData } from "../../contexts/userContext";
 import axios from "axios";
 import MiniLoading from "./MiniLoading";
+import SmartImage from "./SmartImage";
 
 export default function Poster(props) {
     const imgsRoute = useContext(ImgsRoute);
@@ -138,7 +139,7 @@ export default function Poster(props) {
     return (
         <div className="poster-div">
             <Link to={(props.kind === "movies"? "/movies/" : "/series/") + props.posterId}>
-                <img src={imgsRoute + props.src} alt={props.alt} loading="lazy" className="poster-img"/>
+                <SmartImage src={imgsRoute + props.src} alt={props.alt} className="poster-img"/>
                 <p>{props.name}</p>
             </Link>
             <span className="poster-btn poster-fav" onClick={handleFav}>

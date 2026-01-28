@@ -233,7 +233,7 @@ input[type="file"] {
   overflow-x: scroll;
   overflow-y: hidden;
   flex-wrap: nowrap;
-  scrollbar-color: transparent transparent;
+  scrollbar-color: var(--primary-accent) transparent;
 }
 .artist img {
   width: calc(150px + 5vw);

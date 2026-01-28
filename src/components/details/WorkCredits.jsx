@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { ImgsRoute } from "../../contexts/generalContext";
+import SmartImage from "../general UI/SmartImage";
 
 export default function WorkCredits(props) {
     const {posterId} = useParams();
@@ -11,7 +12,7 @@ export default function WorkCredits(props) {
     useEffect(()=> {
         const options = {
             method: 'GET', 
-            url: `https://api.themoviedb.org/3/${props.kind =="movies" ? "movie" :"tv"}/${posterId}/credits?language=en-US`,
+            url: `https://api.themoviedb.org/3/${props.kind =="movies" ? "movie" :"tv"}/${posterId}/${props.kind =="movies" ? "credits" :"aggregate_credits"}?language=en-US`,
             headers: {
                 accept: 'application/json',
                 Authorization: `Bearer ${import.meta.env.VITE_API_ACCESS_TOKEN}`
@@ -58,10 +59,10 @@ export default function WorkCredits(props) {
                     return(
                         <Link to={`/artist/${artist.id}`} key={artist.id}>
                             <div key={artist.id} className="position-relative artist">
-                                <img src={imgsRoute + "w780" + artist.profile_path} alt={props.alt} loading="lazy" className="rounded-4" />
+                                <SmartImage src={imgsRoute + "w780" + artist.profile_path} alt={props.alt} className="rounded-4" />
                                 <div className="artist-names position-absolute">
                                     <p className="artist-name m-0">{artist.original_name}</p>
-                                    <p className="artist-char m-0"><i>{artist.character}</i></p>
+                                    <p className="artist-char m-0"><i>{props.kind =="movies" ? artist.character : artist.roles[0]?.character}</i></p>
                                 </div>
                             </div>
                         </Link>

@@ -3,6 +3,7 @@ import { ImgsRoute } from "../../contexts/generalContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import PagesCount from "../general UI/PagesCount";
+import SmartImage from "../general UI/SmartImage";
 
 export default function ShowImgs(props) {
     const imgsRoute = useContext(ImgsRoute);
@@ -52,13 +53,14 @@ export default function ShowImgs(props) {
             <section className="work-imgs-container">
                 <h2>Images</h2>
                 <div className="work-imgs">
-                    {workImgs[0]? workImgs.map((img, index)=> {
+                    {workImgs[0]? workImgs.map((img)=> {
                         return(
-                            <div key={index} className="work-img">
-                                <img src={imgsRoute + "original" + img.file_path} alt={props.alt} loading="lazy" className="rounded-3" />
+                            <div key={img.file_path} className="work-img">
+                                <SmartImage src={imgsRoute + "original" + img.file_path} alt={props.alt} className="rounded-3"/>
                             </div>
                         )
                     }): <h3>No images available</h3>}
+                    <div className="loading-blur"></div>
                 </div>
                 <PagesCount 
                 pageCount={imgsCount} 
