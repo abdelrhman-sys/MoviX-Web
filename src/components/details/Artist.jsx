@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Loading from "../general UI/Loading";
 import Section from "../general UI/Section";
+import SmartImage from "../general UI/SmartImage";
 
 export default function Artist() {
     const imgsRoute = useContext(ImgsRoute);
@@ -107,7 +108,7 @@ export default function Artist() {
             <div>
                 <section className="artist-details">
                     <div className="artist-profile ms-2" ref={profileRef}>
-                        <img loading="lazy" src={(imgsRoute + "original" + artistInfo.profile_path) || "https://png.pngtree.com/png-clipart/20230917/original/pngtree-icon-of-unavailable-image-illustration-in-vector-with-flat-design-vector-png-image_12324700.png"} alt={artistInfo.name} />
+                        <SmartImage src={(imgsRoute + "original" + artistInfo.profile_path) || "https://png.pngtree.com/png-clipart/20230917/original/pngtree-icon-of-unavailable-image-illustration-in-vector-with-flat-design-vector-png-image_12324700.png"} alt={artistInfo.name} />
                     </div>
                     <div className="artist-info">
                         <h1>{artistInfo.name}</h1>
@@ -152,7 +153,7 @@ export default function Artist() {
                         {artistImages[0]? artistImages.map((img, index)=> {
                             return(
                                 <div key={index} className="artist-img">
-                                    <img src={imgsRoute + "original" + img.file_path} alt="artist image" loading="lazy" className="rounded-3" />
+                                    <SmartImage src={imgsRoute + "original" + img.file_path} alt="artist image" className="rounded-3" />
                                 </div>
                             )
                         }): <h3>No images available</h3>}

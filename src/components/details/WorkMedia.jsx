@@ -60,7 +60,6 @@ export default function ShowImgs(props) {
                             </div>
                         )
                     }): <h3>No images available</h3>}
-                    <div className="loading-blur"></div>
                 </div>
                 <PagesCount 
                 pageCount={imgsCount} 

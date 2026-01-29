@@ -30,7 +30,7 @@ export default function MoreShows() {
         setMiniLoading(true);
         const options = {
         method: 'GET',
-        url: `https://api.themoviedb.org/3/discover/${kind == 'movies'? 'movie': 'tv'}?include_adult=false&include_video=false&language=en-US&page=${pageCount}&sort_by=revenue.desc&with_origin_country=${country}&with_original_language=${lang}`,
+        url: `https://api.themoviedb.org/3/discover/${kind == 'movies'? 'movie': 'tv'}?include_adult=false&include_video=false&language=en-US&page=${pageCount}&sort_by=popularity.desc&with_origin_country=${country}&with_original_language=${lang}`,
         headers: {
             accept: 'application/json',
             Authorization: `Bearer ${import.meta.env.VITE_API_ACCESS_TOKEN}`

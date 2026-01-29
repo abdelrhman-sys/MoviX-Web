@@ -12,10 +12,10 @@ export default function Home() {
             <Carousel />
             <NowMovies />
             <NowSeries />
+            <UpcomingSeries />
             <TopMovies />
             <TopSeries />
             <EgyptianMovies />
-            <UpcomingSeries />
         </>
     )
 }

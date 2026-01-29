@@ -9,7 +9,7 @@ export default function EgyptianMovies() {
     useEffect(()=> {
         const options = {
             method: 'GET',
-            url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&page=1&sort_by=revenue.desc&with_origin_country=EG&with_original_language=ar`,
+            url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&page=1&sort_by=popularity.desc&with_origin_country=EG&with_original_language=ar`,
             headers: {
                 accept: 'application/json',
                 Authorization: `Bearer ${import.meta.env.VITE_API_ACCESS_TOKEN}`

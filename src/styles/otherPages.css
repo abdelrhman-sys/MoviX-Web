@@ -152,9 +152,11 @@ input[type="file"] {
   color: var(--sec-accent);
 }
 .work-details p, .artist-info p {
+  word-break: break-word;
   color: var(--sec-info);
 }
 .work-details span, .artist-info span {
+  hyphens: auto;
   color: var(--main-text);
 }
 .work-genre {
