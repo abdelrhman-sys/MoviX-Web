@@ -121,6 +121,31 @@ header .logo img {
 .posters-header h3 {
   margin: 0;
 }
+.posters-wrapper {
+  position: relative;
+}
+.posters-shadow-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(to right, transparent, var(--sec-bg));
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.posters-shadow-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(to left, transparent, var(--sec-bg));
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.3s;
+}
 .poster-show-more {
   cursor: pointer;
 }
@@ -131,7 +156,7 @@ header .logo img {
 }
 .poster-div img {
   transition: all .3s;
-  width: calc(150px + 5vw);
+  width: calc(150px + 4vw);
   min-width: 140px;
 }
 .poster-div img:hover {
@@ -176,13 +201,16 @@ header .logo img {
 }
 @media (max-width: 660px) {
   .poster-div img {
-    width: calc(145px + 2.5vw);
+    width: calc(145px + 2vw);
   }
   .posters-div {
     scrollbar-color: transparent transparent;
   }
   .posters-div, .search-posters, .more-posters {
     gap: 15px;
+  }
+  .posters-shadow-left, .posters-shadow-right {
+    width: 40px;
   }
 }
 /* 404 error page */

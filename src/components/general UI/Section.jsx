@@ -1,8 +1,34 @@
 import { Link } from "react-router-dom";
 import Poster from "./Poster";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Section(props) {
+    const postersRef = useRef(null);
+    const [showShadowRight, setShowShadowRight] = useState(true);
+    const [showShadowLeft, setShowShadowLeft] = useState(false);
+
+    useEffect(() => { // handle scroll shadow
+        const postersDiv = postersRef.current;
+        if (!postersDiv) return;
+        
+        const handleScroll = () => {
+            const { scrollLeft, scrollWidth, clientWidth } = postersDiv;
+            const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 5; // 5px threshold
+            setShowShadowRight(!isAtEnd);
+            setShowShadowLeft(scrollLeft > 5);
+        };
+
+        // Check initial state
+        handleScroll();
+
+        postersDiv.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+
+        return () => {
+            postersDiv.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+        };
+    }, [props.data]);
     
     useEffect(()=> { // animate titles
         const titles = document.querySelectorAll('.posters-title');
@@ -52,18 +78,22 @@ export default function Section(props) {
                         </h3>
                     </Link>
                 </div>
-                <div className="posters-div">
-                    {props.data.filter(poster=> poster.poster_path || poster.show_poster).map((work) => (
-                        <Poster 
-                            key={work.id || work.show_id} 
-                            src={"w780" + (work.poster_path || work.show_poster)}
-                            path={work.poster_path || work.show_poster}
-                            alt={work.title|| work.name || work.show_name}
-                            name={work.title|| work.name || work.show_name}
-                            posterId={work.id || work.show_id} 
-                            kind={props.kind}
-                        />
-                    ))}
+                <div className="posters-wrapper">
+                    {showShadowLeft && <div className="posters-shadow-left"></div>}
+                    <div className="posters-div" ref={postersRef}>
+                        {props.data.filter(poster=> poster.poster_path || poster.show_poster).map((work) => (
+                            <Poster 
+                                key={work.id || work.show_id} 
+                                src={"w780" + (work.poster_path || work.show_poster)}
+                                path={work.poster_path || work.show_poster}
+                                alt={work.title|| work.name || work.show_name}
+                                name={work.title|| work.name || work.show_name}
+                                posterId={work.id || work.show_id} 
+                                kind={props.kind}
+                            />
+                        ))}
+                    </div>
+                    {showShadowRight && <div className="posters-shadow-right"></div>}
                 </div>
             </section>
         )

@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { UseSearchData } from "../../contexts/searchContext";
 import { UserData } from "../../contexts/userContext";
 import Notification from "./Notification";
 import MainLogo from "./MainLogo";
@@ -9,36 +8,16 @@ import { ServerUrl } from "../../contexts/generalContext";
 
 function Header() {
     const navigate = useNavigate();
-    const { setFormData } = UseSearchData();
     const {user: userObj, setUser: setUserObj} = UserData();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
-    const [notificationTrigger, setNotificationTrigger] = useState(0);
+    const [notificationTrigger, setNotificationTrigger] = useState(0); // to re-trigger notification on success/error
     const server = useContext(ServerUrl);
 
     function handleSearch(formData) {
-        const options = {
-            method: 'GET',
-            url: `https://api.themoviedb.org/3/search/multi?query=${formData.get("search")}&include_adult=false&language=en-US&page=1`,
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${import.meta.env.VITE_API_ACCESS_TOKEN}`
-            }
-        };
-
-        axios
-        .request(options)
-        .then(res => {
-            setFormData(res.data.results);
-            navigate({
-                pathname:`/search`,
-                search: `?query=${formData.get("search")}`
-            });
-        })
-        .catch(err => {
-            setSuccess();
-            setError(err);
-            setNotificationTrigger(notificationTrigger + 1);
+        navigate({
+            pathname:`/search`,
+            search: `?query=${formData.get("search")}`
         });
     }
 

@@ -192,6 +192,31 @@ input[type="file"] {
   padding-left: .5rem;
   padding-right: .5rem; 
 }
+.work-credits-wrapper {
+  position: relative;
+}
+.work-credits-shadow-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(to right, transparent, rgba(41, 40, 40, 0.7));
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.work-credits-shadow-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(to left, transparent, rgba(41, 40, 40, 0.7));
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.3s;
+}
 .work-btn {
   color:inherit;
   transition: all .4s;
@@ -262,6 +287,11 @@ input[type="file"] {
   color: black !important;
   padding: 0 5px;
   border-radius: 2px;
+}
+@media (width < 660px) {
+  .work-credits-shadow-left, .work-credits-shadow-right {
+    width: 40px;
+  }
 }
 @media (width < 794px) {
   .work, .artist-details {
