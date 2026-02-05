@@ -7,6 +7,7 @@ import Recommendatons from "./Recommendations";
 import WorkCredits from "./WorkCredits";
 import ErrorPage from "../general UI/ErrorPage";
 import WorkDetails from "./WorkDetails";
+import WorkSeasons from "./WorkSeasons";
 import { ImgsRoute } from "../../contexts/generalContext";
 
 let omdbTVImdb;
@@ -15,6 +16,7 @@ export default function WorkPage(props) {
     const imgsRoute = useContext(ImgsRoute);
     const [omdbData, setOmdbData] = useState("loading");
     const [tmdbData, setTmdbData] = useState("loading");
+    const [showDetails, setShowDetails] = useState(true);
 
     useEffect(() => { // tmdb data
         setTmdbData("loading");
@@ -42,7 +44,7 @@ export default function WorkPage(props) {
                         setOmdbData(undefined);
                     }
                 }
-                else if(!tmdbResponse.data.imdb_id) {
+                else if(!tmdbResponse.data.imdb_id) { // no imdb id available
                     setOmdbData(undefined);
                 }
 
@@ -76,6 +78,29 @@ export default function WorkPage(props) {
         omdb();
     }, [tmdbData]);
 
+    useEffect(() => { // initial display setup for series
+        moveToDetails();
+        
+    }, [tmdbData, omdbData]);
+    
+    function moveToDetails() {
+        const detailsSection = document.querySelector(".work-details-div");
+        const seasonsSection = document.querySelector(".work-seasons-div");
+        if (!detailsSection || !seasonsSection) return;
+        seasonsSection.style.display="none";
+        detailsSection.style.display="block";
+        setShowDetails(true);
+    }
+
+    function moveToSeasons() {
+        const seasonsSection = document.querySelector(".work-seasons-div");
+        const detailsSection = document.querySelector(".work-details-div");
+        if (!detailsSection || !seasonsSection) return;
+        detailsSection.style.display="none";
+        seasonsSection.style.display="flex";
+        setShowDetails(false);
+    }
+
     if (tmdbData === "loading" || omdbData === "loading") return <Loading />;
 
     if (tmdbData.genres) { // data arrived?
@@ -84,8 +109,29 @@ export default function WorkPage(props) {
                 <WorkDetails kind={props.kind} tmdbData={tmdbData} omdbData={omdbData} />
                 <div className="work-media" style={{backgroundImage: `url(${imgsRoute + 'original' + tmdbData.backdrop_path})`}}>
                     <div>
-                        <WorkCredits kind={props.kind} />
-                        <WorkMedia kind={props.kind} alt={tmdbData.title || tmdbData.name} />
+                        {props.kind === "series" &&
+                            <div className="work-nav d-flex justify-content-center ">
+                                <div className={`mt-1 work-nav-switch ${showDetails ? "details-active" : "seasons-active"}`}>
+                                    <button 
+                                        className={`work-details-btn me-2 px-4 py-3 btn ${showDetails ? "active-work" : ""}`} 
+                                        onClick={moveToDetails}>
+                                        Details
+                                    </button>
+                                    <button 
+                                        className={`work-seasons-btn ms-2 px-4 py-3 btn ${!showDetails ? "active-work" : ""}`} 
+                                        onClick={moveToSeasons}>
+                                        Seasons
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                        <div className="work-details-div">
+                            <WorkCredits kind={props.kind} />
+                            <WorkMedia kind={props.kind} alt={tmdbData.title || tmdbData.name} />
+                        </div>
+                        <div className="work-seasons-div flex-column align-items-center">
+                            <WorkSeasons tmdbData={tmdbData} />
+                        </div>
                         <Recommendatons kind={props.kind} alt={tmdbData.title || tmdbData.name} />
                     </div>    
                 </div>

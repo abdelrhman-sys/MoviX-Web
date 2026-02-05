@@ -199,7 +199,7 @@ input[type="file"] {
   position: absolute;
   top: 0;
   right: 0;
-  bottom: 0;
+  bottom: 15px;
   width: 100px;
   background: linear-gradient(to right, transparent, rgba(41, 40, 40, 0.7));
   pointer-events: none;
@@ -210,7 +210,7 @@ input[type="file"] {
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
+  bottom: 15px;
   width: 100px;
   background: linear-gradient(to left, transparent, rgba(41, 40, 40, 0.7));
   pointer-events: none;
@@ -231,6 +231,155 @@ input[type="file"] {
 .work-btn:hover {
   color: var(--highlight) !important;
   background: linear-gradient(to right bottom ,var(--primary-accent), var(--primary-accent-gradient));
+}
+.work-nav > div {
+  border: 2px solid var(--primary-accent); 
+  border-radius: 100px;
+}
+.work-nav-switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 100px;
+  overflow: hidden;
+}
+.work-nav-switch::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 8px);
+  background: linear-gradient(to right bottom ,var(--primary-accent), var(--primary-accent-gradient));
+  border-radius: 100px;
+  transition: transform .35s ease;
+  z-index: 0;
+}
+.work-nav-switch.seasons-active::before {
+  transform: translateX(100%);
+}
+.work-nav button {
+  font-weight: 800;
+  border: 0;
+  background: transparent;
+  transition: color .3s;
+  z-index: 1;
+}
+.work-nav .work-seasons-btn:hover {
+  color: var(--highlight);
+}
+.work-nav .work-details-btn:hover {
+  color: var(--highlight);
+}
+.work-nav .active-work {
+  background: transparent;
+  color: var(--highlight) !important;
+  border-radius: 100px;
+}
+.work-seasons-section, .work-episodes-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 3rem 10px;
+}
+.work-season-card, .work-episode-card {
+  background: linear-gradient(135deg, var(--sec-accent) 70%, var(--sec-bg));
+  border-radius: 15px;
+  flex: 0 1 310px;
+  font-size: small;
+  background-size: 200% 100%;
+  animation: card 1.5s infinite alternate-reverse;
+}
+@keyframes card {
+  0% {
+    background-position: top left;
+  }
+  100% {
+    background-position: bottom right;
+  }
+}
+.work-episode-card {
+  background: linear-gradient(to bottom, black, var(--sec-bg));
+}
+.season-poster img, .episode-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.season-poster img.loading-blur {
+  aspect-ratio: 2 / 3;
+}
+.episode-poster img.loading-blur {
+  aspect-ratio: 16 / 9;
+}
+.season-details, .episode-details {
+  padding: 0px 7px;
+}
+.season-details h4, .episode-details h4 {
+  color: var(--primary-accent);
+  font-family: var(--font-header);
+  letter-spacing: 2px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.season-details p:nth-child(2), .episode-details p:nth-child(2) {
+  color: var(--sec-info);
+}
+.season-rate, .episode-rate {
+  position: absolute;
+  top: 0px;
+  color: var(--highlight);
+  font-weight: 700;
+  border-radius: 5px;
+}
+.season-rate span:nth-child(1), .episode-rate span:nth-child(1) {
+  background-color: gray;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+#TMDB {
+  background-color: #01ace6;
+  font-weight: 900;
+  color: black !important;
+  padding: 0 3px;
+  border-radius: 2px;
+}
+.episode-season-num {
+  padding: 5px;
+  background: linear-gradient(#2A2A2A, #1E1E1E);
+  max-width: 800px;
+  border-radius: 10px;
+}
+.episode-season-num h3 {
+  font-family: var(--font-header);
+  color: var(--primary-accent);
+  font-weight: 700;
+  font-size: xx-large;
+}
+.episode-number {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 8px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 7px;
+  background: linear-gradient(#2A2A2A, #1E1E1E);
+}
+.episode-runtime {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  background: linear-gradient(#2A2A2A, #1E1E1E);
+  font-size: smaller;
 }
 .work-imgs , .work-vids, .work-trailers, .work-credits, .artist-imgs {
   display: flex;
