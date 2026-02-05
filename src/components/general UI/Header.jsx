@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserData } from "../../contexts/userContext";
@@ -13,6 +13,9 @@ function Header() {
     const [error, setError] = useState();
     const [notificationTrigger, setNotificationTrigger] = useState(0); // to re-trigger notification on success/error
     const server = useContext(ServerUrl);
+    const navRef = useRef(null);
+    const collapseRef = useRef(null);
+    const togglerRef = useRef(null);
 
     function handleSearch(formData) {
         navigate({
@@ -41,10 +44,34 @@ function Header() {
         }
     }
 
+    useEffect(() => { // close navbar when clicking outside of it
+        function handleClickOutside(event) {
+            const navEl = navRef.current;
+            const collapseEl = collapseRef.current;
+            const togglerEl = togglerRef.current;
+
+            if (!navEl || !collapseEl) return;
+
+            const isOpen = collapseEl.classList.contains("show");
+            const clickedInside = navEl.contains(event.target);
+
+            if (isOpen && !clickedInside) {
+                collapseEl.classList.remove("show");
+                if (togglerEl) {
+                    togglerEl.setAttribute("aria-expanded", "false");
+                    togglerEl.classList.add("collapsed");
+                }
+            }
+        }
+
+        document.addEventListener("click", handleClickOutside);
+        return () => document.removeEventListener("click", handleClickOutside);
+    }, []);
+
     return(
         <>
             <header>
-                <nav className="navbar navbar-expand-lg" aria-label="navbar">
+                <nav className="navbar navbar-expand-lg" aria-label="navbar" ref={navRef}>
                     <div className="container-fluid">
                         <Link to="/">
                             <MainLogo />
@@ -74,6 +101,7 @@ function Header() {
                             aria-controls="navbar"
                             aria-expanded="false"
                             aria-label="Toggle navigation"
+                            ref={togglerRef}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list navbar-toggler-icon" viewBox="0 0 16 16">
                                     <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
@@ -81,7 +109,7 @@ function Header() {
                             </button>
                         </div>
 
-                        <div className="navbar-collapse collapse justify-content-center flex-wrap align-items-center" id="navbar">
+                        <div className="navbar-collapse collapse justify-content-center flex-wrap align-items-center" id="navbar" ref={collapseRef}>
                             <ul className="nav-main-ul mb-lg-0 flex-wrap">
                                  <li className="nav-item dropdown">
                                     <a

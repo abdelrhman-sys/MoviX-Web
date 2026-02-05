@@ -310,7 +310,7 @@ input[type="file"] {
   height: auto;
   border-radius: 15px;
   margin-bottom: 5px;
-  cursor: pointer;
+  transition: all .3s;
 }
 .season-poster img.loading-blur {
   aspect-ratio: 2 / 3;
@@ -326,7 +326,11 @@ input[type="file"] {
   font-family: var(--font-header);
   letter-spacing: 2px;
   font-weight: 600;
+  transition: all .3s;
+}
+.season-details h4:hover, .season-poster img:hover {
   cursor: pointer;
+  transform: translateY(-4px);
 }
 .season-details p:nth-child(2), .episode-details p:nth-child(2) {
   color: var(--sec-info);
