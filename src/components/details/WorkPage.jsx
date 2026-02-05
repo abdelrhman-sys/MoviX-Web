@@ -110,27 +110,29 @@ export default function WorkPage(props) {
                 <div className="work-media" style={{backgroundImage: `url(${imgsRoute + 'original' + tmdbData.backdrop_path})`}}>
                     <div>
                         {props.kind === "series" &&
-                            <div className="work-nav d-flex justify-content-center ">
-                                <div className={`mt-1 work-nav-switch ${showDetails ? "details-active" : "seasons-active"}`}>
-                                    <button 
-                                        className={`work-details-btn me-2 px-4 py-3 btn ${showDetails ? "active-work" : ""}`} 
-                                        onClick={moveToDetails}>
-                                        Details
-                                    </button>
-                                    <button 
-                                        className={`work-seasons-btn ms-2 px-4 py-3 btn ${!showDetails ? "active-work" : ""}`} 
-                                        onClick={moveToSeasons}>
-                                        Seasons
-                                    </button>
+                            <>
+                                <div className="work-nav d-flex justify-content-center ">
+                                    <div className={`mt-1 work-nav-switch ${showDetails ? "details-active" : "seasons-active"}`}>
+                                        <button 
+                                            className={`work-details-btn me-2 px-4 py-3 btn ${showDetails ? "active-work" : ""}`} 
+                                            onClick={moveToDetails}>
+                                            Details
+                                        </button>
+                                        <button 
+                                            className={`work-seasons-btn ms-2 px-4 py-3 btn ${!showDetails ? "active-work" : ""}`} 
+                                            onClick={moveToSeasons}>
+                                            Seasons
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                                <div className="work-seasons-div flex-column align-items-center">
+                                    <WorkSeasons tmdbData={tmdbData} />
+                                </div>
+                            </>
                         }
                         <div className="work-details-div">
                             <WorkCredits kind={props.kind} />
                             <WorkMedia kind={props.kind} alt={tmdbData.title || tmdbData.name} />
-                        </div>
-                        <div className="work-seasons-div flex-column align-items-center">
-                            <WorkSeasons tmdbData={tmdbData} />
                         </div>
                         <Recommendatons kind={props.kind} alt={tmdbData.title || tmdbData.name} />
                     </div>    
