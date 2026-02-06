@@ -5,22 +5,46 @@ import { UserData } from "../../contexts/userContext";
 import Notification from "./Notification";
 import MainLogo from "./MainLogo";
 import { ServerUrl } from "../../contexts/generalContext";
+import MiniSearch from "./MiniSearch";
 
 function Header() {
+    const server = useContext(ServerUrl);
     const navigate = useNavigate();
     const {user: userObj, setUser: setUserObj} = UserData();
+    const [searchQuery, setSearchQuery] = useState("");
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
     const [notificationTrigger, setNotificationTrigger] = useState(0); // to re-trigger notification on success/error
-    const server = useContext(ServerUrl);
     const navRef = useRef(null);
     const collapseRef = useRef(null);
     const togglerRef = useRef(null);
+    const miniSearchRef = useRef(null);
 
     function handleSearch(formData) {
         navigate({
             pathname:`/search`,
             search: `?query=${formData.get("search")}`
+        });
+    }
+
+    function miniSearch(event) {
+        const query = event.target.value;
+        const options = {
+            method: 'GET',
+            url: `https://api.themoviedb.org/3/search/multi?include_adult=false&language=en-US&page=1&query=${query}`,
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${import.meta.env.VITE_API_ACCESS_TOKEN}`
+            }
+        };
+
+        axios
+        .request(options)
+        .then(res => setSearchQuery(res.data.results.slice(0, 5))) // limit to 5 results
+        .catch(err => {
+            setError("Search error " + err);
+            setNotificationTrigger(prev=> prev+1);
+            setSuccess();
         });
     }
 
@@ -68,6 +92,20 @@ function Header() {
         return () => document.removeEventListener("click", handleClickOutside);
     }, []);
 
+    useEffect(() => { // close mini search when clicking outside of it
+        document.addEventListener("click", (e) => {
+            const isShown = document.querySelector("input[aria-label='Search']").value !== null;
+            
+            const clickedInside = miniSearchRef.current && miniSearchRef.current.contains(e.target);
+            console.log(isShown, clickedInside);
+
+            if (isShown && !clickedInside) {
+                setSearchQuery("");
+            }
+        });
+        return () => document.removeEventListener("click", () => {});
+    }, []);
+
     return(
         <>
             <header>
@@ -77,14 +115,15 @@ function Header() {
                             <MainLogo />
                         </Link>
 
-                        <div className="d-flex form-and-toggle">
+                        <div className="d-flex form-and-toggle position-relative">
                             <form role="search" action={handleSearch} className="d-flex align-items-center me-2">
                                 <input
                                 name="search"
                                 type="search"
-                                placeholder="Movie, Series ..."
+                                placeholder="Movie, Series, Actor ..."
                                 className="form-control"
                                 aria-label="Search"
+                                onChange={miniSearch}
                                 required
                                 />
                                 <button type="submit">
@@ -107,6 +146,7 @@ function Header() {
                                     <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
                                 </svg>
                             </button>
+                            {searchQuery.length > 0 && <MiniSearch results={searchQuery} ref={miniSearchRef} />}
                         </div>
 
                         <div className="navbar-collapse collapse justify-content-center flex-wrap align-items-center" id="navbar" ref={collapseRef}>
