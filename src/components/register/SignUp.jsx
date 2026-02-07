@@ -38,7 +38,7 @@ export default function SignUp() {
                     }, {headers: {'content-type': 'application/json'}, withCredentials: true});
                     userData = {...userData, user: {...userData.user, profile_pic: imgUrl}}; // update user data including the profile pic
                 } catch (imgError) {
-                    setError("Failed to upload profile image: ", imgError);
+                    setError("Failed to upload profile image: " + imgError);
                     setErrorTrigger(errorTrigger + 1);
                 }
             }

@@ -12,6 +12,7 @@
   max-height: 70vh;
   overflow-y: scroll;
   font-size: smaller;
+  z-index: 100;
 }
 .mini-search-result {
   display: flex;
