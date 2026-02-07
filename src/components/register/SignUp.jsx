@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useActionState } from "react";
 import axios from "axios";
 import { UserData } from "../../contexts/userContext";
 import Notification from "../general UI/Notification";
@@ -7,6 +7,7 @@ import uploadBlob from '../../utils/uploadImgToSupabase';
 import getImgUrl from "../../utils/getImgUrl";
 import { ServerUrl } from "../../contexts/generalContext";
 import { useContext } from "react";
+import MiniLoading from "../general UI/MiniLoading";
 
 export default function SignUp() {
     const server = useContext(ServerUrl);
@@ -15,8 +16,9 @@ export default function SignUp() {
     const [error, setError] = useState();
     const [errorTrigger, setErrorTrigger] = useState(0); // trigger the useEffect in notification to call the callback
     const navigate = useNavigate();
+    const [, formAction, isPending] = useActionState(handleSignup, null);
 
-    async function handleSignup(formData) {
+    async function handleSignup(prevState, formData) {
         try {
             // First register the user without the profile picture
             const res = await axios.post(`${server}/newuser`, {
@@ -28,7 +30,6 @@ export default function SignUp() {
             } , {headers: {'content-type': 'application/json'}, withCredentials: true});
             
             let userData = res.data;
-            setUser(userData); // to move the value to other pages
             if (img && img.base64) { // If registration is successful upload img and update the user profile
                 try {
                     const imgPath = await uploadBlob(img.base64, img.type);
@@ -64,7 +65,7 @@ export default function SignUp() {
     return (
         <>
             <main className="form-signup">
-                <form action={handleSignup}>
+                <form action={formAction}>
                     <div className="signup-pic">
                         <div id="pic">
                             <img src={(img && img.base64) || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"} alt="profile image" />
@@ -116,8 +117,8 @@ export default function SignUp() {
                         </label>
 
                         <div className="d-flex flex-column gap-2">
-                            <button className="btn btn-primary w-100 py-2 signup-submit" type="submit">
-                                sign Up
+                            <button className="btn btn-primary w-100 py-2 signup-submit" type="submit" disabled={isPending}>
+                                {isPending ? <MiniLoading /> : "sign Up"}
                             </button>
                             <button className="btn btn-secondary w-100 py-2 login-google" type="button" onClick={handleGoogle}>
                                 Sign up with Google

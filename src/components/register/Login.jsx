@@ -1,31 +1,35 @@
 import {Link, useNavigate} from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useActionState } from "react";
 import axios from "axios";
 import { UserData } from "../../contexts/userContext";
 import Notification from "../general UI/Notification";
 import { ServerUrl } from "../../contexts/generalContext";
 import getImgUrl from "../../utils/getImgUrl";
+import MiniLoading from "../general UI/MiniLoading";
 
 export default function Login() {
     const {setUser} = UserData();
     const [error, setError] = useState();
     const [errorTrigger, setErrorTrigger] = useState(0);
     const navigate = useNavigate();
-    const server = useContext(ServerUrl);
+    const [, formAction, isPending] = useActionState(handleSubmit, null);
+    const server = useContext(ServerUrl);    
 
-    async function handleSubmit(formData) {
+    async function handleSubmit(prevState, formData) {
         try {
             const {data} = await axios.post(`${server}/local/user`, {
                 email: formData.get("email"),
                 password: formData.get("password"),
             } , {headers: {'content-type': 'application/json'}, withCredentials: true});
-            setUser(data); // to move the value to other pages
-            navigate("/");
 
+            let finalUserData = data;
             if (data.user.profile_pic) {
                 var imgUrl = await getImgUrl(data.user.profile_pic);
-                setUser({...data, user: {...data.user, profile_pic: imgUrl}});
+                finalUserData = {...data, user: {...data.user, profile_pic: imgUrl}};
             }
+
+            setUser(finalUserData); // to move the value to other pages
+            navigate("/");
         } catch (error) {
             if (error.response) {
                 setError("Error: " + error.response.status + " " + error.response.data);
@@ -45,7 +49,7 @@ export default function Login() {
     return (
         <>
             <main className="form-signin">
-                <form action={handleSubmit}>
+                <form action={formAction}>
                     <div>
                         <h1 className="mb-4">Welcome back</h1>
                     </div>
@@ -72,8 +76,8 @@ export default function Login() {
                         <label htmlFor="floatingPassword">Password</label>
                     </div>
                     <div className="d-flex flex-column gap-2">
-                        <button className="btn btn-primary w-100 py-2 login-submit" type="submit">
-                            Login
+                        <button className="btn btn-primary w-100 py-2 login-submit" type="submit" disabled={isPending}>
+                            {isPending ? <MiniLoading /> : "login"}
                         </button>
                         <button className="btn btn-secondary w-100 py-2 login-google" type="button" onClick={handleGoogle}>
                             Sign in with Google

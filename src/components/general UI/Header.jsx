@@ -94,10 +94,8 @@ function Header() {
 
     useEffect(() => { // close mini search when clicking outside of it
         document.addEventListener("click", (e) => {
-            const isShown = document.querySelector("input[aria-label='Search']").value !== null;
-            
+            const isShown = document.querySelector("input[aria-label='Search']").value !== "";
             const clickedInside = miniSearchRef.current && miniSearchRef.current.contains(e.target);
-            console.log(isShown, clickedInside);
 
             if (isShown && !clickedInside) {
                 setSearchQuery("");
